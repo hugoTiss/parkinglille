@@ -10,7 +10,6 @@ class ServiceModule {
 
 
     @Provides
-    @Singleton
     fun provideParkingService( retrofit: Retrofit):ParkingAvailabilityService{
         return retrofit.create(ParkingAvailabilityService::class.java)
     }

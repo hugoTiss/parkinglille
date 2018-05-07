@@ -7,7 +7,7 @@ import retrofit2.http.Query
 
 interface ParkingAvailabilityService {
 
-    @GET("/search")
+    @GET("search")
     fun availabilityParking(@Query("dataset")dataset:String,@Query("rows") rows:Int): Call<ResponseParking>
 
 
