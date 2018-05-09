@@ -17,7 +17,11 @@ class ParkingMapActivity : AppCompatActivity() {
 
 
         parkingViewModel.getParkingAvailability().observe(this, Observer {
-            activityParkingMapTextView.setText(it?.get(0)?.fields?.adresse)
+            if(it!=null&&it.size>0)
+                it.get(0)?.fields?.adresse.run {
+                activityParkingMapTextView.setText(this)
+                }
+
         })
 
     }

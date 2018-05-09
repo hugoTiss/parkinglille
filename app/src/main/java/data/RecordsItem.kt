@@ -1,23 +1,30 @@
 package data
 
 
+import android.arch.persistence.room.ColumnInfo
+import android.arch.persistence.room.Embedded
+import android.arch.persistence.room.Entity
+import android.arch.persistence.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
 
+@Entity(tableName = "recordsItem")
 data class RecordsItem(
+	@PrimaryKey(autoGenerate = true)
+	var key: Long,
+
 
 	@field:SerializedName("recordid")
-	val recordid: String? = null,
+	val recordid: String,
 
 	@field:SerializedName("datasetid")
-	val datasetid: String? = null,
+	val datasetid: String,
 
-	@field:SerializedName("geometry")
-	val geometry: Geometry? = null,
 
+	@Embedded
 	@field:SerializedName("fields")
-	val fields: Fields? = null,
+	val fields: Fields,
 
 	@field:SerializedName("record_timestamp")
-	val recordTimestamp: String? = null
+	val recordTimestamp: String
 )

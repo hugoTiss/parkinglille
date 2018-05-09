@@ -12,7 +12,7 @@ class ParkingApplication:Application() {
         lateinit var instance:Application
             private set
         val serviceComponent:ServiceComponent by lazy {
-            DaggerServiceComponent.builder().build()
+            DaggerServiceComponent.builder().appModule(AppModule(instance)).build()
         }
 
     }

@@ -3,23 +3,27 @@ package network
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
+import dao.ParkingDataBase
+import dao.ParkingDataDAO
 import data.RecordsItem
 import data.ResponseParking
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import util.Constants
 import javax.inject.Inject
 
-class RepositoryManager @Inject constructor(private val parkingAvailabilityService: ParkingAvailabilityService) {
+class RepositoryManager @Inject constructor(private val parkingAvailabilityService: ParkingAvailabilityService,private val parkingDataDAO: ParkingDataDAO) {
 
+    companion object {
+        var isInit=false
+    }
 
     var parkingAvailable = MutableLiveData<List<RecordsItem?>>()
 
     var parkingServiceError= MutableLiveData<Boolean>()
     fun getParkingAvailable(): LiveData<List<RecordsItem?>> {
-        callParkingAvailable()
-        return parkingAvailable
+        if (!isInit)initData()
+        return parkingDataDAO.getAllParkingAvailable()
     }
 
     fun getParkingServiceError():LiveData<Boolean> = parkingServiceError
@@ -36,13 +40,15 @@ class RepositoryManager @Inject constructor(private val parkingAvailabilityServi
 
 
                 response?.body()?.records?.run {
-                    parkingAvailable.value = this
-                    parkingServiceError.value=false
+                    isInit=true
+                    parkingDataDAO.insetData(requireNoNulls())
+
                 }
 
             }
 
         })
     }
+    fun initData()=callParkingAvailable()
 
 }
