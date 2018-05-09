@@ -12,6 +12,6 @@ class ParkingViewModel : ViewModel() {
         ParkingApplication.serviceComponent.getRepositoryManager()
     }
 
-    fun getParkingAvailability():LiveData<List<RecordsItem?>> = repositoryManager.getParkingAvailable()
+    fun getParkingAvailability():LiveData<List<RecordsItem>> = repositoryManager.getParkingAvailable()
 
 }

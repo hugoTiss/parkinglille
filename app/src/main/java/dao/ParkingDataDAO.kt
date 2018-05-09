@@ -11,7 +11,7 @@ import data.RecordsItem
 interface ParkingDataDAO {
 
     @Query("SELECT * from recordsItem")
-    fun getAllParkingAvailable():LiveData<List<RecordsItem?>>
+    fun getAllParkingAvailable():LiveData<List<RecordsItem>>
 
     @Insert(onConflict = REPLACE)
     fun insetData(parkingAvailable:List<RecordsItem>)

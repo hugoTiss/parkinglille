@@ -41,6 +41,8 @@ dependencies {
     implementation "com.android.support:appcompat-v7:$support_version"
     implementation "com.android.support:design:$support_version"
 
+    implementation 'com.google.android.gms:play-services-maps:15.0.0'
+
     implementation "android.arch.lifecycle:extensions:$arch_version"
     // alternatively, just ViewModel
     implementation "android.arch.lifecycle:viewmodel:$arch_version"
@@ -48,6 +50,7 @@ dependencies {
     implementation "android.arch.lifecycle:livedata:$arch_version"
 
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+
     annotationProcessor "android.arch.lifecycle:compiler:$arch_version"
 
     // Room (use 1.1.0-rc1 for latest version)

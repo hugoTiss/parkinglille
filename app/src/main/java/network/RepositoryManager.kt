@@ -21,7 +21,7 @@ class RepositoryManager @Inject constructor(private val parkingAvailabilityServi
     var parkingAvailable = MutableLiveData<List<RecordsItem?>>()
 
     var parkingServiceError= MutableLiveData<Boolean>()
-    fun getParkingAvailable(): LiveData<List<RecordsItem?>> {
+    fun getParkingAvailable(): LiveData<List<RecordsItem>> {
         if (!isInit)initData()
         return parkingDataDAO.getAllParkingAvailable()
     }

@@ -33,7 +33,7 @@ data class Fields(
 
         @TypeConverters(DataTypeConverter::class)
         @field:SerializedName("coordgeo")
-        val coordgeo: List<Double?>,
+        val coordgeo: List<Double>,
 
         @field:SerializedName("id")
         val id: String,
