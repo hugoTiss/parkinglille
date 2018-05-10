@@ -10,21 +10,21 @@ import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "recordsItem")
 data class RecordsItem(
-	@PrimaryKey(autoGenerate = true)
-	var key: Long,
+
+        @PrimaryKey
+        var keys: String,
+
+        @field:SerializedName("recordid")
+        val recordid: String,
+
+        @field:SerializedName("datasetid")
+        val datasetid: String,
 
 
-	@field:SerializedName("recordid")
-	val recordid: String,
+        @Embedded
+        @field:SerializedName("fields")
+        val fields: Fields,
 
-	@field:SerializedName("datasetid")
-	val datasetid: String,
-
-
-	@Embedded
-	@field:SerializedName("fields")
-	val fields: Fields,
-
-	@field:SerializedName("record_timestamp")
-	val recordTimestamp: String
+        @field:SerializedName("record_timestamp")
+        val recordTimestamp: String
 )

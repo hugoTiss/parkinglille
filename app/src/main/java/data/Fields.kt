@@ -35,6 +35,7 @@ data class Fields(
         @field:SerializedName("coordgeo")
         val coordgeo: List<Double>,
 
+        @PrimaryKey
         @field:SerializedName("id")
         val id: String,
 

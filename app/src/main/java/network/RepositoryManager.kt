@@ -41,13 +41,20 @@ class RepositoryManager @Inject constructor(private val parkingAvailabilityServi
 
                 response?.body()?.records?.run {
                     isInit=true
-                    parkingDataDAO.insetData(requireNoNulls())
+
+                    parkingDataDAO.insetData(changePrivateKeyParking(this.requireNoNulls()))
 
                 }
-
             }
 
         })
+    }
+    fun changePrivateKeyParking( list:List<RecordsItem>):List<RecordsItem>{
+        for (item in list)
+        {
+            item.keys=item.fields.id
+        }
+        return list
     }
     fun initData()=callParkingAvailable()
 
