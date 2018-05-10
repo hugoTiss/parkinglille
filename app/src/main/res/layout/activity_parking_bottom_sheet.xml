@@ -1,27 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:layout_behavior="@string/bottom_sheet_behavior"
+    android:id="@+id/activityParkingBottomView"
+    android:layout_width="match_parent"
+    android:layout_height="250dp"
+    android:background="@color/colorWhiteTransparency"
     app:behavior_hideable="true"
     app:behavior_peekHeight="80dp"
-    android:background="@color/colorWhiteTransparency"
-    android:layout_height="300dp">
+    app:layout_behavior="@string/bottom_sheet_behavior">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+
     <android.support.v7.widget.SearchView
-        android:layout_width="match_parent"
-        android:background="@color/colorWhiteTransparency"
         android:id="@+id/activityParkingSearchView"
-        android:layout_height="80dp"/>
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@color/colorWhiteTransparency" />
 
     <android.support.v7.widget.RecyclerView
-        android:layout_below="@+id/activityParkingSearchView"
         android:id="@+id/activityParkingRecyclerView"
-        android:background="@color/colorWhiteTransparency"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-    </RelativeLayout>
-</android.support.v4.widget.NestedScrollView>
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/activityParkingSearchView"
+        android:background="@color/colorWhiteTransparency" />
+</RelativeLayout>

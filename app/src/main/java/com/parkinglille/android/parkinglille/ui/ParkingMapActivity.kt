@@ -4,10 +4,12 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.design.widget.BottomSheetBehavior
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.Menu
+import android.view.View
 import android.widget.SearchView
 import android.widget.Toolbar
 import com.google.android.gms.maps.GoogleMap
@@ -30,6 +32,7 @@ class ParkingMapActivity : AppCompatActivity(),OnMapReadyCallback,GoogleMap.OnMa
     var parkingData:List<RecordsItem> = arrayListOf()
     lateinit var map:GoogleMap
     lateinit var parkingAdapter:ParkingAdapter
+    lateinit var bottomSheetBehavior:BottomSheetBehavior<View>
 
 
 
@@ -67,11 +70,13 @@ class ParkingMapActivity : AppCompatActivity(),OnMapReadyCallback,GoogleMap.OnMa
     }
 
     override fun onMarkerClick(p0: Marker?): Boolean {
-        Log.d("ParkingMapActivity","Click")
+        if(bottomSheetBehavior.state==BottomSheetBehavior.STATE_COLLAPSED)bottomSheetBehavior.state=BottomSheetBehavior.STATE_EXPANDED
+        parkingAdapter.addListParking(parkingData.filter { it.keys==p0?.tag.toString() })
         return false
     }
 
     private fun initSearchView(){
+        bottomSheetBehavior= BottomSheetBehavior.from(activityParkingBottomView)
         activityParkingSearchView.setOnQueryTextListener(object :android.support.v7.widget.SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return true
@@ -81,7 +86,16 @@ class ParkingMapActivity : AppCompatActivity(),OnMapReadyCallback,GoogleMap.OnMa
                 if(!newText.isNullOrEmpty()) {
                    parkingAdapter.addListParking( parkingData.filter { it.fields.libelle.contains(newText!!, true) })
                 }
+                else
+                {
+                    parkingAdapter.addListParking(parkingData)
+                }
                 return true
+            }
+        })
+        activityParkingSearchView.setOnClickListener(object :View.OnClickListener{
+            override fun onClick(p0: View?) {
+                if(bottomSheetBehavior.state==BottomSheetBehavior.STATE_COLLAPSED)bottomSheetBehavior.state=BottomSheetBehavior.STATE_EXPANDED
             }
         })
     }
@@ -99,22 +113,5 @@ class ParkingMapActivity : AppCompatActivity(),OnMapReadyCallback,GoogleMap.OnMa
 
     }
 
-    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_parking,menu)
-        val searchItem =menu?.findItem(R.id.activity_toolbar_search)
 
-        val searchView = searchItem?.actionView as SearchView
-
-        searchView.setOnQueryTextListener(object :SearchView.OnQueryTextListener{
-            override fun onQueryTextSubmit(p0: String?): Boolean {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
-
-            override fun onQueryTextChange(p0: String?): Boolean {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
-        })
-
-        return super.onPrepareOptionsMenu(menu)
-    }
 }
